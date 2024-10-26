@@ -1,0 +1,74 @@
+<!-- weather/templates/weather/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Monitoring</title>
+</head>
+<body>
+    <h1>Daily Weather Summaries</h1>
+    <table border="1">
+        <tr>
+            <th>City</th>
+            <th>Date</th>
+            <th>Average Temp (°C)</th>
+            <th>Max Temp (°C)</th>
+            <th>Min Temp (°C)</th>
+            <th>Dominant Condition</th>
+        </tr>
+        {% for summary in summaries %}
+        <tr>
+            <td>{{ summary.city }}</td>
+            <td>{{ summary.date }}</td>
+            <td>{{ summary.average_temp }}</td>
+            <td>{{ summary.max_temp }}</td>
+            <td>{{ summary.min_temp }}</td>
+            <td>{{ summary.dominant_condition }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Weather Alerts</h1>
+    <table border="1">
+        <tr>
+            <th>City</th>
+            <th>Condition</th>
+            <th>Triggered At</th>
+        </tr>
+        {% for alert in alerts %}
+        <tr>
+            <td>{{ alert.city }}</td>
+            <td>{{ alert.condition }}</td>
+            <td>{{ alert.triggered_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <!-- Add this to weather/templates/weather/index.html -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="weatherChart" width="400" height="200"></canvas>
+<script>
+    var ctx = document.getElementById('weatherChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [/* Dates */],
+            datasets: [{
+                label: 'Average Temperature',
+                data: [/* Average Temp Data */],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
